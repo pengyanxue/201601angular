@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="zfpxMod">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.css"/>
+</head>
+<body class="container">
+<div ng-controller="zfpxCtrl">
+    张三：{{zhangsan}}
+    李四：{{lisi}}
+    <hr/>
+    <at-person name="{{zhangsan}}"></at-person>
+    <at-person name="{{lisi}}"></at-person>
+</div>
+<div ng-controller="zfpxCtrl">
+    张三：{{zhangsan}}
+    李四：{{lisi}}
+    <hr/>
+    <eq-person name="zhangsan"></eq-person>
+    <eq-person name="lisi"></eq-person>
+</div>
+<div ng-controller="zfpxCtrl">
+    张三：{{zhangsan}}
+    李四：{{lisi}}
+    <hr/>
+    <and-person name="zhangsan"  greet="greet(name)"></and-person>
+    <and-person name="lisi"  greet="greet(name)"></and-person>
+</div>
+
+<script src="../lib/angular/angular.js"></script>
+<script>
+    angular.module('zfpxMod', []);
+    angular.module('zfpxMod').controller('zfpxCtrl', function ($scope) {
+        $scope.zhangsan = 'zhangsan';
+        $scope.lisi = 'lisi';
+        $scope.greet = function (name) {
+            alert('greet'+name);
+        }
+    })
+    angular.module('zfpxMod').directive('atPerson', function () {
+        return {
+            //scope:true,//每个指令实例拥有自己独立的Scope
+            scope: {
+                name: '@name'//当前scope上的name属性引用指令上name属性的字面量的值
+            },
+            template: '<input type="text" ng-model="name"/><div>姓名：{{name}}</div>'
+        }
+    })
+    angular.module('zfpxMod').directive('eqPerson', function () {
+        return {
+            //scope:true,//每个指令实例拥有自己独立的Scope
+            scope: {
+                name: '=name'//当前scope上的name属性引用指令上name属性的字面量的值
+            },
+            template: '<input type="text" ng-model="name"/><div>姓名：{{name}}</div>'
+        }
+    })
+    angular.module('zfpxMod').directive('andPerson', function () {
+        return {
+            //scope:true,//每个指令实例拥有自己独立的Scope
+            scope: {
+                nameXX: '=name',//当前scope上的name属性引用指令上name属性的字面量的值
+                greet: '&'
+            },
+            template: '<input type="text" ng-model="nameXX"/><div>姓名：{{nameXX}} <button ng-click="greet({name:nameXX})">打招呼</button></div>'
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="zfpxMod">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.css"/>
+</head>
+<body class="container" ng-controller="zfpxCtrl">
+{{"120000000"|date:'yy-M-d h:mm:ss a'}}
+<input type="text" ng-model="format"/>
+当前时间：<span zf-current-time="format"></span>
+当前时间：<span zf-current-time="format"></span>
+当前时间：<span zf-current-time="format"></span>
+
+
+
+<script src="../lib/angular/angular.js"></script>
+<script>
+    angular.module('zfpxMod', []);
+    angular.module('zfpxMod').controller('zfpxCtrl', function ($scope) {
+
+    })
+    //过滤器服务的名字就是  过滤器名字+Filter
+    angular.module('zfpxMod').directive('zfCurrentTime', function ($interval,dateFilter) {
+        return {
+        scope:true,
+        //链接函数，实现DOm操作，scope赋值的
+            link:function(scope,element,attrs){
+                function updateTime(){
+                    element.html(dateFilter(new Date(),scope[attrs['zfCurrentTime']]));
+                }
+                var timeoutId=$interval(function(){
+                    updateTime();
+                },1000);
+                $scope.on('destroy',function(){
+                    $interval.cancel(timeoutId);
+                })
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

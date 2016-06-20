@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="zfpxMod">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Anjular</title>
+    <style>
+        div {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body ng-init="isShow=true">
+<div ng-controller="watchCtrl" ng-if="isShow">
+    <input type="text" ng-model="one"/>
+    <input type="text" ng-model="two"/>
+    <input type="text" ng-model="three"/>
+</div>
+
+<script src="../lib/angular/angular.js"></script>
+<script>
+    angular.module('zfpxMod', []);
+    angular.module('zfpxMod').controller('watchCtrl', function ($rootScope,$scope, $timeout) {
+        //每当age发生变化的时候，回调函数执行
+        $scope.$watch('one', function (newVal, oldVal) {
+            $scope.two=newVal;
+        })
+        $scope.$watch('two', function (newVal, oldVal) {
+            $scope.three=newVal;
+            $scope.one=Math.random();
+        })
+    })
+</script>
+</body>
+</html>
