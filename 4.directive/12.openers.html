@@ -38,6 +38,7 @@
     angular.module('zfpxMod').controller('zfpxCtrl', function ($scope) {
         $scope.openers = [
             {title: '标题1', content: '内容1'},
+            {title: '标题2', content: '内容2'},
             {title: '标题2', content: '内容2'}
         ];
 
@@ -58,7 +59,7 @@
                 //代理opener的点击事件
                 this.open=function(selectOpener){
                     angular.forEach(openers,function(opener){
-                        if(selectOpener!=opener)
+                       if(selectOpener!=opener)
                         opener.show=false;
                     });
                     selectOpener.show=!selectOpener.show;

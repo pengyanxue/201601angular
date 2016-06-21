@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="zfpxMod">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="row" ng-controller="zfpxCtrl as vm">
+        <div class="col-xs-4 col-xs-offset-4">
+            <input type="text" class="form-control" ng-model="vm.a"/>
+            <select name="" id="" class="form-control" ng-model="vm.operate">
+                <options>
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                    <option value="*">*</option>
+                    <option value="/">/</option>
+                </options>
+            </select>
+            <input type="text" class="form-control" ng-model="vm.b"/>
+            <button class="btn btn-primary form-control" ng-click="vm.doCal()">=</button>
+            <div id="result" ng-bind="vm.result"></div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../lib/angular/angular.js"></script>
+<script>
+    angular.module('zfpxMod', []);
+    angular.module('zfpxMod').factory('zfCalculator', function () {
+        var prefix='$';
+        return {
+            '+': function (a, b) {
+                return prefix+(parseInt(a) + parseInt(b))
+            },
+            '-': function (a, b) {
+                return prefix+(parseInt(a) - parseInt(b))
+            },
+            '*': function (a, b) {
+                return prefix+(parseInt(a) * parseInt(b))
+            },
+            '/': function (a, b) {
+                return prefix+(parseInt(a) / parseInt(b))
+            }
+        }
+    });
+    /*angular.module('zfpxMod').config(function(zfCalculatorProvider){
+        zfCalculatorProvider.setPrefix('￥');
+    })*/
+    angular.module('zfpxMod').controller('zfpxCtrl', function (zfCalculator) {
+        this.doCal = function () {
+            var vm = this;
+                vm.result = zfCalculator[vm.operate](vm.a, vm.b);
+        }
+    });
+
+</script>
+</body>
+</html>
