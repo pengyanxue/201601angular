@@ -21,7 +21,8 @@
             });
             function decorate(method){
                 return function(){
-                    var args=Array.prototype.slice(arguments);
+                    var args=Array.prototype.slice.call
+(arguments);
                     args.unshift(new Date().toLocaleString());
                     method.apply(null,args);
                 }
