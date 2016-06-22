@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.css"/>
 </head>
 <body>
+
+<div class="alert alert-danger">{{message}}</div>
 <div ng-controller="zfpxCtrl">
 
 </div>
@@ -18,7 +20,7 @@
         $httpProvider.interceptors.push('zfInterceptor');
     });
     angular.module('zfpxMod').controller('zfpxCtrl', function ($http) {
-        $http.get('books.json').success(function(data,status,headers,config){
+        $http.get('http://localhost:8080').success(function(data,status,headers,config){
             //config就是请求的配置对象
             /*$http({url:'',
             type:'GET'})*/
@@ -31,7 +33,7 @@
         })
     });
 
-    angular.module('zfpxMod').factory('zfInterceptor',function(){
+    angular.module('zfpxMod').factory('zfInterceptor',function($rootScope){
         return {
             //会在$http发送到后台之前执行，在这里可以修改配置
             //接收配置对象做为参数，然后必须返回配置对象或者promise
@@ -44,7 +46,7 @@
             //接收响应对象做为参数，必须返回响应对象或者promise
             //响应对象包括了请求配置，请求头 状态 和响应体
             'response':function(response){
-                response.data[0].name=response.data[0].name.toUpperCase();
+                /*response.data[0].name=response.data[0].name.toUpperCase();*/
                 console.log('response');
                 return response;
             },
@@ -53,7 +55,14 @@
             'requestError':function(rejection){
                 console.log('requestError');
             },
-            'responseError':function(){
+            //如果后台响应失败了，
+            'responseError':function(rejection){
+                switch (rejection.status){
+                    case 401:console.log('需要登录');
+                    case 403:console.log('没有权限');
+                    case 404:console.log('找不到页面');
+                    case 500:console.log('服务器端错误');$rootScope.message='没有权限';
+                }
                 console.log('responseError');
             }
         }
