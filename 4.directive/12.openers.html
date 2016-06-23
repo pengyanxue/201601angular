@@ -75,8 +75,8 @@
             transclude: true,
             require: '^group',
             scope: {
-                title: '=title'
-            },
+                title: '='
+            },//建立独立scope  @:把属性值作为纯文本{{title}} =:代表控制器上scope的属性  &:作为一个方法
             templateUrl: 'tmpls.html',
             link: function (scope, element, attr, groupCtrl) {
                 //把自己的scope注册到上级指令中
