@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="uiMod">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div ui-view></div>
+
+
+<script src="../lib/angular.js"></script>
+<script src="../lib/angular-ui-router.js"></script>
+<script>
+    angular.module('uiMod',['ui.router']);
+    angular.module('uiMod').config(function($stateProvider,$urlRouterProvider){
+        $urlRouterProvider.otherwise('/state1');
+        $stateProvider.state('state1',{
+           url:'/state1',
+            templateUrl:'tmpl/state1.html'
+        }).state('state1.list',{
+            url:'/list',
+            templateUrl:'tmpl/state1.list.html'
+        });
+    })
+</script>
+</body>
+</html>
