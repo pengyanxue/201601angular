@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="zfpxMod">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.css"/>
+</head>
+<body ng-controller="zfpxCtrl">
+<ul>
+    <a href="#/index">index</a>
+    <a href="#/user">user</a>
+    <a href="#/book">book</a>
+</ul>
+<div ng-view></div>
+
+<script src="../lib/angular/angular.js"></script>
+<script src="angular-route.js"></script>
+<script>
+    /*1 监听锚点的变化
+     2 渲染模版得到html代码片段
+     如果是template，直接渲染
+     如果是templateUrl，要先获取文件内容再渲染
+     3 清空原来的div，把片段放进去*/
+    angular.module('zfpxMod', ['ngRoute']);
+    angular.module('zfpxMod').controller('zfpxCtrl', function ($scope) {
+
+    });
+    angular.module('zfpxMod').controller('bookCtrl', function ($scope) {
+        $scope.title = 'world';
+    });
+    angular.module('zfpxMod').config(function ($routeProvider) {
+        $routeProvider.when('/', {
+            template: 'index'
+        }).when('/user', {
+            templateUrl: 'user.html',
+            controller: function ($scope) {
+                $scope.title = 'Hello';
+            }
+        }).when('/book', {
+            template: '{{title}}',
+            controller: 'bookCtrl'
+        }).otherwise({
+            redirectTo: '/'
+        })
+    })
+
+</script>
+</body>
+</html>
