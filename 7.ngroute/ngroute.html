@@ -27,7 +27,7 @@
      3 清空原来的div，把片段放进去*/
     angular.module('zfpxMod', ['ngRoute']);
     angular.module('zfpxMod').controller('zfpxCtrl', function ($scope, $location) {
-        $scope.goUser = ()=>{
+        $scope.goUser = () = >{
             $location.path('user');
         }
     });
@@ -75,6 +75,7 @@
 
                 }else{
                     alert('禁止访问');
+                    event.preventDefault();
                     return false;
                 }
             }

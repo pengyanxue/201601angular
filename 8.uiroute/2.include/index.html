@@ -6,21 +6,52 @@
 </head>
 <body>
 
+<ul>
+    <li><a ui-sref="user">用户管理</a></li>
+    <li><a ui-sref="book">书籍管理</a></li>
+    <li><a ui-sref="profile">个人设置</a></li>
+</ul>
 <div ui-view></div>
 
 
 <script src="../lib/angular.js"></script>
 <script src="../lib/angular-ui-router.js"></script>
 <script>
-    angular.module('uiMod',['ui.router']);
-    angular.module('uiMod').config(function($stateProvider,$urlRouterProvider){
-        $urlRouterProvider.otherwise('/state1');
-        $stateProvider.state('state1',{
-           url:'/state1',
-            templateUrl:'tmpl/state1.html'
-        }).state('state1.list',{
-            url:'/list',
-            templateUrl:'tmpl/state1.list.html'
+    angular.module('uiMod', ['ui.router']);
+    angular.module('uiMod').config(function ($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise('/user');
+        $stateProvider.state('user', {
+            url: '/user',
+            templateUrl: 'tmpl/user.html'
+        }).state('user.list', {
+            url: '/list',
+            templateUrl: 'tmpl/user.list.html'
+        }).state('user.add', {
+            url: '/add',
+            templateUrl: 'tmpl/user.add.html'
+        }).state('book', {
+            url: '/book',
+            templateUrl: 'tmpl/book.html'
+        }).state('book.list', {
+            url: '/list',
+            templateUrl: 'tmpl/user.list.html'
+        }).state('book.add', {
+            url: '/add',
+            templateUrl: 'tmpl/user.add.html'
+        }).state('profile', {
+            url: '/profile',
+            views:{
+                '':{
+                    templateUrl:'tmpl/profile.html'
+                },
+                'userInfo@profile':{
+                    templateUrl:'tmpl/userInfo.html'
+                },
+                'contactInfo@profile':{
+                    template:'北京昌平'
+                }
+            }
+
         });
     })
 </script>
